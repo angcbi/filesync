@@ -2,9 +2,9 @@
 # encoding: utf-8
 
 import os
-import json
 import pickle
 import hashlib
+import socket
 
 
 def createmd5(path):
@@ -45,10 +45,11 @@ def createmd5(path):
             print e
 
 
+def sock(ip, port):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect()
 if __name__ == '__main__':
-      # path = raw_input('Please enter a path:\n')
       path = '/home/caicai/Dev/Dev/my_blog'
-      # path = u'E:\kankan'
       if os.path.exists(path):
             print createmd5(path)
       else:
