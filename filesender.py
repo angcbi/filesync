@@ -47,7 +47,7 @@ def createmd5(path):
 
 def sock(ip, port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect()
+    s.connect((ip, prot))
 if __name__ == '__main__':
       path = '/home/caicai/Dev/Dev/my_blog'
       if os.path.exists(path):
