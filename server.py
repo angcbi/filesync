@@ -3,7 +3,6 @@
 
 
 import os
-import socket
 from gevent.server import StreamServer
 
 def recfile(sock, addr, filename):
@@ -19,15 +18,15 @@ def recfile(sock, addr, filename):
                     break
                 f.write(data)
         print 'recv %s done' %filename
-        sock.close()
-
+        #sock.close()
     except Exception, e:
         print e
 
 def handle(sock, addr):
     print 'New connection from %s:%d' %addr
-    data  = sock.recv(1024)
-    if 'file' in data:
+    data = sock.recv(1024)
+    print data
+    if 'file ' in data:
         filename = data.split(' ')[-1].replace('\r\n', '')
         recfile(sock, addr, filename)
 

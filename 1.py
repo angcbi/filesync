@@ -2,7 +2,6 @@
 # encoding: utf-8
 
 import os
-import sys
 from gevent.server import StreamServer
 
 

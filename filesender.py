@@ -40,18 +40,34 @@ def createmd5(path):
                               templist.append(tempdict)
             with open(config, 'wb') as confighandler:
                   pickle.dump(templist, confighandler)
-            return templist, len(templist)
+            return map(lambda x: x['filename'], filter(lambda x: x['flag'] in ('new', 'modify'), templist))
       except Exception, e:
             print e
 
 
 def sock(ip, port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((ip, prot))
+    try:
+        s.connect((ip, port))
+        return s
+    except Exception, e:
+        print e
+
+def sendFile(sock, filelist):
+    for file in filelist:
+        sock.send('file ' + file)
+        with open(file, 'rb') as f:
+            for data in f:
+                sock.send(data)
+        print '%s has been sended' % file
+
+
 if __name__ == '__main__':
       path = '/home/caicai/Dev/Dev/my_blog'
       if os.path.exists(path):
-            print createmd5(path)
+            s = sock('', 9999)
+            filelist = createmd5(path)
+            sendFile(s, filelist)
       else:
             print '%s is not exists' % path
 
